@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
 class Book extends Component {
-    changeBookShelf = (h) => {
-    this.props.onUpdate(h.target.value) 
+    changeBookShelf = (u) => {
+        this.props.onUpdate(u.target.value) 
     }
   render () {
       const book = this.props.book
