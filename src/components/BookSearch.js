@@ -11,39 +11,50 @@ class BookSearch extends Component {
     query: ''
   }
   
-  handleChange = (event) => {
+handleChange = (event) => {
     var value = event.target.value
     this.setState(() => {
-      return {
-        query: value
-      }
+      return {query: value}
     })
     this.searchBooks(value)
   }
+  
+  changeBookShelf = (books) => {
+    let all_Books = this.props.myBooks
+    for (let book of books) {
+      book.shelf = "none"
+    }
+      
+     for (let book of books) {
+      for (let b of all_Books) {
+        if (b.id === book.id) {
+          book.shelf = b.shelf
+        }
+      }
+    }
+    return books
+  }
+  
    searchBooks = (val)=> {
     if(val.length !== 0) {
       BooksAPI.search(val,10).then((books)=>{
-        if (books.length>0) {
-          this.setState(()=>{
-            return {
-              Books:books.filter((book)=>(book.imageLinks))
-            }
+        if (books.length > 0) {
+          books = books.filter((book) => (book.imageLinks))
+          books = this.changeBookShelf(books)
+          this.setState(() => {
+            return {Books: books}
           })
         }
       })
-    }
-    else
+      }
+    else 
     {
-      this.setState({
-        Books: [],
-        query: ''
-      })
+      this.setState({ Books: [], query: ''})
     }
   }
    
     addBook = (book, shelf) => {
         this.props.onChange(book, shelf)
-        this.props.history.push('/')
     }
      
   render () {

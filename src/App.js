@@ -43,7 +43,7 @@ class BooksApp extends React.Component {
           render={({history})=> (
             <BookSearch
               onChange={this.updateBooksDetails}
-              history={history}
+              myBooks={this.state.Books}
             />
           )}/>
         
