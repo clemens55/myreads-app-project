@@ -71,7 +71,7 @@ handleChange = (event) => {
             {this.state.query.length>0 && this.state.Books.map((book,index)=>(
               <Book
                 book={book}
-                key={index}
+                key={book.id}
                 onUpdate={(shelf)=> {
                   this.addBook(book,shelf)
                 }}/>
